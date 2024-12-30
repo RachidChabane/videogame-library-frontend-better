@@ -1,12 +1,14 @@
 import type { Game, GameCreated, GameUpdated, GameFilterParams } from '$lib/types/game/game';
-// @ts-ignore
-import { API_URL } from '$env/dynamic/private';
+// TODO : voir pourquoi l'import ne fonctionne pas
+//import { API_URL } from '$env/dynamic/private';
 
+const API_URL = "http://localhost:8080"
 const BASE_URL = `${API_URL}/api/games`;
 const STUDIO_URL = `${API_URL}/api/studios`;
 const PLATFORM_URL = `${API_URL}/api/platforms`;
 
 // Games
+// TODO : remplacer URLSearchParams
 export const getAllGames = async (params: GameFilterParams) => {
     const searchParams = new URLSearchParams();
     if (params.name) searchParams.set('name', params.name);

@@ -1,6 +1,7 @@
 import type {Handle} from "@sveltejs/kit";
 import type {User} from "$lib/types/user/user";
 import {parseFormData} from 'parse-nested-form-data'
+import {sequence} from "@sveltejs/kit/hooks";
 
 // Middleware pour vérifier si l'utilisateur est connecté
 // TODO : compléter/corriger
@@ -42,4 +43,4 @@ const parseForm: Handle = async ({event, resolve})=> {
     return resolve(event)
 }
 
-export const handle = {auth, parseForm}
+export const handle = sequence(auth, parseForm)
