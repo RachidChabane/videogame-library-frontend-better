@@ -6,8 +6,7 @@
     import { page } from '$app/state';
     import {goto} from "$app/navigation";
 
-    let { data } = $props();
-    let game = $state<Game>(data.game);
+    let game = $state<Game>(page.data.game);
     let error = $state<string>();
     let showDeleteModal = $state(false);
     let showSuccessModal = $state(false);

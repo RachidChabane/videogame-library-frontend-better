@@ -1,4 +1,4 @@
-import type { Game, GameCreated, GameUpdated, GameFilterParams } from '$lib/types/game/game';
+import type {Game, GameCreated, GameUpdated, GameFilterParams, GamePages} from '$lib/types/game/game';
 // TODO : voir pourquoi l'import ne fonctionne pas
 //import { API_URL } from '$env/dynamic/private';
 
@@ -8,8 +8,7 @@ const STUDIO_URL = `${API_URL}/api/studios`;
 const PLATFORM_URL = `${API_URL}/api/platforms`;
 
 // Games
-// TODO : remplacer URLSearchParams
-export const getAllGames = async (params: GameFilterParams) => {
+export const getAllGames = async (params: GameFilterParams): Promise<GamePages> => {
     const searchParams = new URLSearchParams();
     if (params.name) searchParams.set('name', params.name);
     if (params.genre) searchParams.set('genre', params.genre);

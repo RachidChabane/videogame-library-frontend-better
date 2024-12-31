@@ -7,6 +7,18 @@ export type Game = {
     platforms: string[];
 }
 
+export type GamePages = {
+    content: Game[];
+    page: Page;
+}
+
+export type Page = {
+    size: number;
+    number: number;
+    totalElements: number;
+    totalPages: number;
+}
+
 export type GameCreated = {
     name: string;
     genre: string;
