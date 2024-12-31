@@ -31,6 +31,7 @@ const auth: Handle = async ({event, resolve})=> {
 
 const parseForm: Handle = async ({event, resolve})=> {
     // listen to "POST" and "PUT" requests
+    /*
     if (event.request.method === 'POST' || event.request.method === 'PUT') {
         // get the form data from the request
         const formData = await event.request.formData()
@@ -38,7 +39,7 @@ const parseForm: Handle = async ({event, resolve})=> {
         // parse the form data into a JSON object
         // make it available inside `actions`
         event.locals.formData = parseFormData(formData)
-    }
+    }*/
 
     return resolve(event)
 }

@@ -2,10 +2,19 @@
     import { enhance } from '$app/forms';
     import type { Game } from '$lib/types/game/game';
 
-    let { game, onClose } = $props<{
+    let { game, onClose, onSuccess } = $props<{
         game: Game;
         onClose: () => void;
+        onSuccess: () => void;
     }>();
+
+    const handleDelete = () => {
+        return async ({ result }: { result: { type: string } }) => {
+            if (result.type === 'success') {
+                onSuccess();
+            }
+        };
+    };
 </script>
 
 <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
@@ -19,13 +28,7 @@
         <form
                 method="POST"
                 action="?/delete"
-                use:enhance={() => {
-                return async ({ result }) => {
-                    if (result.type === 'success') {
-                        onClose();
-                    }
-                };
-            }}
+                use:enhance={handleDelete}
         >
             <div class="flex justify-end space-x-3">
                 <button

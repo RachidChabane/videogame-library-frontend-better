@@ -4,6 +4,7 @@
     import GameSuccessModal from './GameSuccessModal.svelte';
     import type { Game } from '$lib/types/game/game';
     import { page } from '$app/state';
+    import {goto} from "$app/navigation";
 
     let { data } = $props();
     let game = $state<Game>(data.game);
@@ -26,6 +27,22 @@
         showEditModal = false;
         showDeleteModal = false;
     }
+
+    const handleGameUpdate = (updatedGame: Game) => {
+        game = updatedGame; // Update the local game state
+        showEditModal = false;
+        successMessage = 'Le jeu a été modifié avec succès';
+        showSuccessModal = true;
+    }
+
+    const handleGameDelete = () => {
+        showDeleteModal = false;
+        successMessage = 'Le jeu a été supprimé avec succès';
+        showSuccessModal = true;
+        setTimeout(() => {
+            goto('/games');
+        }, 2000);
+    };
 </script>
 <div class="container mx-auto min-h-screen p-6 bg-gray-200">
 {#if error}
@@ -87,6 +104,7 @@
     <GameEditModal
             {game}
             onClose={handleCloseModal}
+            onUpdate={handleGameUpdate}
     />
 {/if}
 </div>
@@ -94,6 +112,7 @@
     <GameDeleteModal
             {game}
             onClose={handleCloseModal}
+            onSuccess={handleGameDelete}
     />
 {/if}
 

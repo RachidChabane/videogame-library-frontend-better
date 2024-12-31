@@ -1,11 +1,29 @@
 <script lang="ts">
     import { enhance } from '$app/forms';
     import type { Game } from '$lib/types/game/game';
+    import type {SubmitFunction} from "@sveltejs/kit";
 
-    let { game, onClose } = $props<{
+    let { game, onClose, onUpdate } = $props<{
         game: Game;
         onClose: () => void;
+        onUpdate: (game: Game) => void;
     }>();
+
+    let loading = $state(false);
+
+    const updateGame: SubmitFunction = () => {
+        loading = true;
+
+        return async ({ result, update }) => {
+            if (result.type === 'success' && result.data) {
+                onUpdate(result.data.game);
+            } else if (result.type === 'failure') {
+                console.error('Update failed:', result.data);
+            }
+            loading = false;
+            await update();
+        };
+    };
 </script>
 
 <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
@@ -14,14 +32,8 @@
 
         <form
                 method="POST"
-                action="?/update"
-                use:enhance={() => {
-                return async ({ result }) => {
-                    if (result.type === 'success') {
-                        onClose();
-                    }
-                };
-            }}
+                action="?/updateGame"
+                use:enhance={updateGame}
         >
             <div class="space-y-4">
                 <div>
@@ -76,14 +88,16 @@
                         type="button"
                         onclick={onClose}
                         class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200"
+                        disabled={loading}
                 >
                     Annuler
                 </button>
                 <button
                         type="submit"
                         class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700"
+                        disabled={loading}
                 >
-                    Sauvegarder
+                    {loading ? 'Sauvegarde...' : 'Sauvegarder'}
                 </button>
             </div>
         </form>
