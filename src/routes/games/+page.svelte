@@ -27,7 +27,8 @@
 
     const handlePageChange = (newPage: number) => {
         const params = new URLSearchParams(page.url.searchParams);
-        params.set('page', newPage.toString());
+        // Page numbers are 0-based in the backend
+        params.set('page', (newPage - 1).toString());
         goto(`/games?${params.toString()}`);
     }
 </script>
