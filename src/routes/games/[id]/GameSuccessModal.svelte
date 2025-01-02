@@ -1,18 +1,20 @@
 <script lang="ts">
-    let { message, duration = 2000 } = $props<{
+    let { message, duration = 2000, autoHide = true } = $props<{
         message: string;
         duration?: number;
+        autoHide?: boolean;
     }>();
 
     let visible = $state(true);
 
-    // TODO : replace
     $effect(() => {
-        const timer = setTimeout(() => {
-            visible = false;
-        }, duration);
+        if (autoHide) {
+            const timer = setTimeout(() => {
+                visible = false;
+            }, duration);
 
-        return () => clearTimeout(timer);
+            return () => clearTimeout(timer);
+        }
     });
 </script>
 

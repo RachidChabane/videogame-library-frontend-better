@@ -63,7 +63,7 @@ export const actions = {
         }
     },
 
-    delete: async ({ params }) => {
+    deleteGame: async ({ params }) => {
         try {
             const gameId = parseInt(params.id);
             if (isNaN(gameId)) {

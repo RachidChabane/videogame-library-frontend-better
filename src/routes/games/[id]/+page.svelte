@@ -12,10 +12,11 @@
     let showSuccessModal = $state(false);
     let showEditModal = $state(false);
     let successMessage = $state('');
+    const modalDuration = 2000;
 
-    // TODO : remplacer true par false après avoir correctement implémenté l'authentification
     const canModify = () => {
-        return page.data.user?.roles?.includes('ROLE_USER') ?? true
+        //return !!page.data.user;
+        return true; // tant que l'authent ne fonctionne pas
     }
 
     const handleModify = () => {
@@ -28,19 +29,20 @@
     }
 
     const handleGameUpdate = (updatedGame: Game) => {
-        game = updatedGame; // Update the local game state
+        game = updatedGame;
         showEditModal = false;
         successMessage = 'Le jeu a été modifié avec succès';
         showSuccessModal = true;
     }
 
-    const handleGameDelete = () => {
+    const handleGameDelete = async () => {
         showDeleteModal = false;
         successMessage = 'Le jeu a été supprimé avec succès';
         showSuccessModal = true;
-        setTimeout(() => {
-            goto('/games');
-        }, 2000);
+
+        // On attend la fin du display de la modal avant de redirect
+        await new Promise(resolve => setTimeout(resolve, modalDuration));
+        goto('/games');
     };
 </script>
 <div class="container mx-auto min-h-screen p-6 bg-gray-200">
@@ -98,7 +100,6 @@
         <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
     </div>
 {/if}
-<!-- Edit Modal -->
 {#if showEditModal && game}
     <GameEditModal
             {game}
@@ -118,5 +119,7 @@
 {#if showSuccessModal}
     <GameSuccessModal
             message={successMessage}
+            duration={modalDuration}
+            autoHide={!showDeleteModal}
     />
 {/if}

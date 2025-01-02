@@ -16,7 +16,7 @@
         */
     ];
 
-    function navigateToGame(id: number) {
+    const navigateToGame = (id: number) => {
         goto(`/games/${id}`);
     }
 </script>

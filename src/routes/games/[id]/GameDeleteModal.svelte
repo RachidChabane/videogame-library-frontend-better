@@ -1,6 +1,7 @@
 <script lang="ts">
     import { enhance } from '$app/forms';
     import type { Game } from '$lib/types/game/game';
+    import type {SubmitFunction} from "@sveltejs/kit";
 
     let { game, onClose, onSuccess } = $props<{
         game: Game;
@@ -8,7 +9,7 @@
         onSuccess: () => void;
     }>();
 
-    const handleDelete = () => {
+    const deleteGame: SubmitFunction = () => {
         return async ({ result }: { result: { type: string } }) => {
             if (result.type === 'success') {
                 onSuccess();
@@ -27,8 +28,8 @@
 
         <form
                 method="POST"
-                action="?/delete"
-                use:enhance={handleDelete}
+                action="?/deleteGame"
+                use:enhance={deleteGame}
         >
             <div class="flex justify-end space-x-3">
                 <button

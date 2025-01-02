@@ -1,8 +1,6 @@
 import type {Game, GameCreated, GameUpdated, GameFilterParams, GamePages} from '$lib/types/game/game';
-// TODO : voir pourquoi l'import ne fonctionne pas
-//import { API_URL } from '$env/dynamic/private';
+import {API_URL} from '$lib/server/api/api';
 
-const API_URL = "http://localhost:8080"
 const BASE_URL = `${API_URL}/api/games`;
 const STUDIO_URL = `${API_URL}/api/studios`;
 const PLATFORM_URL = `${API_URL}/api/platforms`;

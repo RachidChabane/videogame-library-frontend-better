@@ -1,7 +1,6 @@
 import type {PageServerLoad} from "../../../.svelte-kit/types/src/routes/games/[id]/$types";
 import {getAllGames} from "$lib/server/game/gameService";
 import {error} from "@sveltejs/kit";
-import type {Game} from "$lib/types/game/game";
 
 export const load = (async ({ url }) => {
     const name = url.searchParams.get('name') || undefined;
