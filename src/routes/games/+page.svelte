@@ -11,6 +11,7 @@
     const genreOptions = [...new Set(page.data.games.content.map((g: Game) => g.genre))] as string[];
     const yearOptions = [...new Set(page.data.games.content.map((g: Game) => g.releaseYear))] as number[];
 
+    // TODO : voir comment mieux faire
     const handleFilterChange = (key: keyof GameFilterParams, value: any) => {
         const params = new URLSearchParams(page.url.searchParams);
 
@@ -25,17 +26,15 @@
         goto(`/games?${params.toString()}`);
     }
 
+    // TODO : voir comment mieux faire
     const handlePageChange = (newPage: number) => {
         const params = new URLSearchParams(page.url.searchParams);
-        // Page numbers are 0-based in the backend
         params.set('page', (newPage - 1).toString());
         goto(`/games?${params.toString()}`);
     }
 </script>
 
 <div class="container mx-auto px-4 py-8">
-    <h1 class="text-3xl font-bold mb-8">Bibliothèque de jeux</h1>
-
     <div class="grid md:grid-cols-[250px_1fr] gap-6">
         <!-- Filters sidebar -->
         <div class="space-y-6">

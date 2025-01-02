@@ -15,7 +15,7 @@
         Précédent
     </button>
     <span class="mx-4 font-semibold">
-        Page {currentPage} / {totalPages}
+        Page {currentPage} / {totalPages === 0 ? 1 : totalPages}
     </span>
     <button
         class="px-4 py-2 bg-blue-500 text-white rounded disabled:opacity-50 hover:bg-blue-600"
