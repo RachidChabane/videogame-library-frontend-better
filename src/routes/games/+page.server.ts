@@ -1,5 +1,5 @@
 import type {PageServerLoad} from "../../../.svelte-kit/types/src/routes/games/[id]/$types";
-import {getAllGames} from "$lib/server/game/gameService";
+import {getAllGames, getAllGenres, getAllReleaseYears, getAllStudios} from "$lib/server/game/gameService";
 import {error} from "@sveltejs/kit";
 
 export const load = (async ({ url }) => {
@@ -25,7 +25,14 @@ export const load = (async ({ url }) => {
         throw error(404, 'Games not found');
     }
 
+    const studios = await getAllStudios();
+    const genres = await getAllGenres();
+    const years = await getAllReleaseYears();
+
     return {
+        studios: studios,
+        genres: genres,
+        years: years,
         games: games
     };
 }) satisfies PageServerLoad;

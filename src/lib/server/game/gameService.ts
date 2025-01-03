@@ -1,4 +1,4 @@
-import type {Game, GameCreated, GameUpdated, GameFilterParams, GamePages} from '$lib/types/game/game';
+import type {Game, GameCreated, GameUpdated, GameFilterParams, GamePages, Studio} from '$lib/types/game/game';
 import {API_URL} from '$lib/server/api/api';
 
 const BASE_URL = `${API_URL}/api/games`;
@@ -75,7 +75,7 @@ export const getAllGenres = async (): Promise<string[]> => {
 };
 
 // Studios
-export const getAllStudios = async () => {
+export const getAllStudios = async (): Promise<Studio[]> => {
     const response = await fetch(STUDIO_URL);
     return response.json();
 };

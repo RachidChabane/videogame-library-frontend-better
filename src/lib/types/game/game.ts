@@ -7,6 +7,11 @@ export type Game = {
     platforms: string[];
 }
 
+export type Studio = {
+    id: number;
+    name: string;
+}
+
 export type GamePages = {
     content: Game[];
     page: Page;

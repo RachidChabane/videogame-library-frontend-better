@@ -3,13 +3,13 @@
     import GameFilters from './GameFilters.svelte';
     import GameSort from './GameSort.svelte';
     import GamePagination from './GamePagination.svelte';
-    import type { GameFilterParams, Game } from '$lib/types/game/game';
+    import type {GameFilterParams, Studio} from '$lib/types/game/game';
     import { goto } from '$app/navigation';
     import { page } from '$app/state';
 
-    const studioOptions = [...new Set(page.data.games.content.map((g: Game) => g.studioName))] as string[];
-    const genreOptions = [...new Set(page.data.games.content.map((g: Game) => g.genre))] as string[];
-    const yearOptions = [...new Set(page.data.games.content.map((g: Game) => g.releaseYear))] as number[];
+    const studioOptions = [...new Set(page.data.studios.map((s: Studio) => s.name))] as string[];
+    const genreOptions = page.data.genres;
+    const yearOptions = page.data.years;
 
     // TODO : voir comment mieux faire
     const handleFilterChange = (key: keyof GameFilterParams, value: any) => {
